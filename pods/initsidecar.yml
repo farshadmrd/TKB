@@ -8,19 +8,21 @@ spec:
   initContainers:
   - name: ctr-sync
     restartPolicy: Always
-    image: k8s.gcr.io/git-sync:v3.1.6
+    image: registry.k8s.io/git-sync/git-sync:v4.4.0
     volumeMounts:
     - name: html
       mountPath: /tmp/git
     env:
-    - name: GIT_SYNC_REPO
-      value: https://github.com/nigelpoulton/ps-sidecar.git
-    - name: GIT_SYNC_BRANCH
-      value: master
-    - name: GIT_SYNC_DEPTH
-      value: "1"
-    - name: GIT_SYNC_DEST
-      value: "html"
+    - name: GITSYNC_REPO
+      value: https://github.com/farshadmrd/TKB
+    - name: GITSYNC_REF
+      value: "2026"
+    - name: GITSYNC_ROOT
+      value: /tmp/git
+    - name: GITSYNC_LINK
+      value: html
+    - name: GITSYNC_PERIOD
+      value: 30s
   containers:
   - name: ctr-web
     image: nginx
